@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorpion - O Espectro Vingativo do Shirai Ryu | Mortal Kombat</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* :root Variables */
+        :root {
+            --primary: #ffb703;
+            --primary-hover: #fb8500;
+            --bg-dark: #0d0d0d;
+            --bg-card: #1a1a1a;
+            --text-light: #f8f9fa;
+            --text-muted: #a0a0a0;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+            --base-font-size: 16px;
+        }
+
+        /* Reset & Global Rules */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius);
+        }
+
+        /* Accessibility Bar */
+        .accessibility-bar {
+            background-color: #000000;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .acc-btn {
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 4px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .acc-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Layout Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Typography Clamp */
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; text-align: center; margin-bottom: 2rem; }
+        h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #000;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: clamp(60px, 10vh, 120px) 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(20px, 4vw, 50px);
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .hero-tag {
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+        }
+
+        .hero-image-wrapper img {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 25px rgba(255, 183, 3, 0.3);
+        }
+
+        /* About & History Section */
+        .about-section {
+            padding: clamp(50px, 8vh, 100px) 0;
+            background-color: #121212;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            text-align: left;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: clamp(50px, 8vh, 100px) 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(20px, 3vw, 40px);
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid #2a2a2a;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+        }
+
+        /* Gallery Grid */
+        .gallery-section {
+            padding: clamp(50px, 8vh, 100px) 0;
+            background-color: #121212;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: var(--transition);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .gallery-card img {
+            border-radius: 0;
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-card-content {
+            padding: 15px;
+        }
+
+        .gallery-card-content h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .gallery-card-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            padding: clamp(50px, 8vh, 100px) 0;
+        }
+
+        .carousel-container {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid #2a2a2a;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .carousel-img-container {
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .carousel-img-container img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .carousel-content {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .carousel-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .carousel-text {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background: #2a2a2a;
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Accordion Section */
+        .faq-section {
+            padding: clamp(50px, 8vh, 100px) 0;
+            background-color: #121212;
+        }
+
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .accordion-item {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            border: 1px solid #2a2a2a;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .accordion-body {
+            padding: 0 20px 20px 20px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .accordion-item.active .accordion-body {
+            display: block;
+        }
+
+        .accordion-item.active .accordion-header {
+            color: var(--primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: clamp(60px, 10vh, 120px) 0;
+            text-align: center;
+            background: linear-gradient(180deg, #121212 0%, #0d0d0d 100%);
+        }
+
+        .cta-container {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: clamp(40px, 6vw, 80px) 20px;
+            border: 1px solid var(--primary);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+        }
+
+        /* High Contrast Mode Shielding */
+        body.high-contrast, body.high-contrast *:not(i):not(.icon) {
+            background-color: #000 !important;
+            color: #fff !important;
+            border: 1px solid #ff0 !important;
+            background-image: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        body.high-contrast a, body.high-contrast button {
+            color: #ff0 !important;
+            text-decoration: underline !important;
+            font-weight: bold !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Accessibility Controls -->
+    <div class="accessibility-bar">
+        <button class="acc-btn" id="btn-increase">A+</button>
+        <button class="acc-btn" id="btn-decrease">A-</button>
+        <button class="acc-btn" id="btn-contrast">Alto Contraste</button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-content">
+            <span class="hero-tag">Mortal Kombat Spec-Sheet</span>
+            <h1 class="hero-title">Domine as Chamas do <span>Netherrealm</span></h1>
+            <p class="hero-desc">Lidere a batalha com Hanzo Hasashi. Descubra a história completa, as rivalidades lendárias, técnicas letais e o legado do grão-mestre imortal do Shirai Ryu.</p>
+            <div>
+                <a href="#cta" class="btn">Get Over Here!</a>
+            </div>
+        </div>
+        <div class="hero-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80" alt="Ilustração conceitual de guerreiro ninja com aura flamejante">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>A Lenda de Hanzo Hasashi</h2>
+                    <p>Antes de se tornar o espectro do Netherrealm, Hanzo Hasashi era o maior guerreiro do clan Shirai Ryu. Após o massacre de seu clan e a perda de sua família, sua alma foi manipulada pelo feiticeiro Quan Chi, ressuscitando-o como uma força de vingança incansável.</p>
+                    <p>Com o passar das eras, Scorpion rompeu as amarras do controle mental, descobriu a verdade sobre a tragédia de seu povo e reestabeleceu o Shirai Ryu como defensores fiéis da Terra (Earthrealm), transformando rivalidade em uma aliança histórica com Sub-Zero.</p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1514539079130-25950c84af65?auto=format&fit=crop&w=800&q=80" alt="Espada e símbolos ninja em chamas">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features container">
+        <h2>Habilidades e Arsenal Letais</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon">🔥</div>
+                <h3>Hellfire Control</h3>
+                <p>Capacidade de invocar o fogo do inferno diretamente do Netherrealm para carbonizar oponentes e criar armadilhas de terreno.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Spear & Teleport</h3>
+                <p>Uso magistral da kunai presa à corrente combinada com o teletransporte através de portais infernais para mobilidade total.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚔️</div>
+                <h3>Lâminas Ninjutsu</h3>
+                <p>Domínio absoluto de espadas duplas (Mugai Ryu) e combate corpo a corpo refinado ao longo de séculos de batalhas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Terceiros / Aliados & Rivais) -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2>O Universo ao Redor de Scorpion</h2>
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Gelo e elementos frios representando Sub-Zero">
+                    <div class="gallery-card-content">
+                        <h3>Sub-Zero (Kuai Liang)</h3>
+                        <p>De archenemigo mortal a aliado leal do Shirai Ryu após a revelação das manipulações de Quan Chi.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80" alt="Sombras e feitiçaria representando Quan Chi">
+                    <div class="gallery-card-content">
+                        <h3>Quan Chi</h3>
+                        <p>O nefasto feiticeiro do Netherrealm responsável pela destruição do clan original e pela maldição de Scorpion.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" alt="Relâmpago representando Lord Raiden">
+                    <div class="gallery-card-content">
+                        <h3>Lord Raiden</h3>
+                        <p>O Deus do Trovão que recrutou Scorpion e o Shirai Ryu para proteger Earthrealm das ameaças externas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="carousel-section container">
+        <h2>Capítulos Marcantes da Sua História</h2>
+        <div class="carousel-container">
+            <div class="carousel-img-container">
+                <img id="carousel-img" src="" alt="Imagem do capítulo">
+            </div>
+            <div class="carousel-content">
+                <div class="carousel-title" id="carousel-title">Carregando...</div>
+                <div class="carousel-text" id="carousel-text">Carregando...</div>
+            </div>
+            <div class="carousel-nav">
+                <button class="nav-btn" id="prev-btn">Anterior</button>
+                <button class="nav-btn" id="next-btn">Próximo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Perguntas Frequentes</h2>
+            <div class="accordion" id="accordion-container">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section container" id="cta">
+        <div class="cta-container">
+            <h2>Pronto Para Dominar a Arena?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Junte-se à legião do Shirai Ryu e receba estratégias e guias de combate exclusivos.</p>
+            <button class="btn" onclick="alert('Inscrição confirmada no Shirai Ryu!')">Juntar-se ao Clan</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Landing Page Scorpion. Desenvolvido para alta conversão e performance.</p>
+        </div>
+    </footer>
+
+    <!-- Embedded JavaScript -->
+    <script>
+        // Accessibility State and Logic
+        let currentFontSize = 16;
+        const rootHtml = document.documentElement;
+        const bodyEl = document.body;
+
+        document.getElementById('btn-increase').addEventListener('click', () => {
+            if (currentFontSize < 24) {
+                currentFontSize += 2;
+                rootHtml.style.fontSize = currentFontSize + 'px';
+            }
+        });
+
+        document.getElementById('btn-decrease').addEventListener('click', () => {
+            if (currentFontSize > 12) {
+                currentFontSize -= 2;
+                rootHtml.style.fontSize = currentFontSize + 'px';
+            }
+        });
+
+        document.getElementById('btn-contrast').addEventListener('click', () => {
+            bodyEl.classList.toggle('high-contrast');
+        });
+
+        // Carousel Data & Logic
+        const carouselData = [
+            {
+                title: "A Vingança de Hanzo Hasashi",
+                text: "Ressuscitado por Quan Chi, Scorpion travou uma busca implacável de vingança acreditando que o Lin Kuei Sub-Zero era o assassino de sua família.",
+                image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                title: "O Icônico 'Get Over Here!'",
+                text: "A frase lendária pronunciada ao disparar sua kunai com corrente, atraindo oponentes sem defesa para o alcance de suas lâminas.",
+                image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                title: "Restauração e Redenção",
+                text: "Livre da maldição do Netherrealm, Hanzo refundou o Shirai Ryu para proteger os inocentes e treinar a nova geração de guerreiros da Terra.",
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        let currentCarouselIndex = 0;
+        const titleEl = document.getElementById('carousel-title');
+        const textEl = document.getElementById('carousel-text');
+        const imgEl = document.getElementById('carousel-img');
+
+        function updateCarousel() {
+            titleEl.textContent = carouselData[currentCarouselIndex].title;
+            textEl.textContent = `"${carouselData[currentCarouselIndex].text}"`;
+            imgEl.src = carouselData[currentCarouselIndex].image;
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            currentCarouselIndex = (currentCarouselIndex - 1 + carouselData.length) % carouselData.length;
+            updateCarousel();
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            currentCarouselIndex = (currentCarouselIndex + 1) % carouselData.length;
+            updateCarousel();
+        });
+
+        // Accordion Data & Logic
+        const faqData = [
+            {
+                question: "Qual é o estilo de jogo do Scorpion nos jogos?",
+                answer: "Scorpion é focado em controle de espaço, pressão contínua e punições rápidas usando seus teletransportes e ataques de longa distância com a lança."
+            },
+            {
+                question: "Qual a diferença entre Hanzo Hasashi e Scorpion?",
+                answer: "Hanzo Hasashi é sua identidade humana original como Grão-Mestre Ninja. Scorpion é a persona e o nome do espectro vingativo ressuscitado no Netherrealm."
+            },
+            {
+                question: "Por que Scorpion e Sub-Zero se tornaram aliados?",
+                answer: "A aliança ocorreu após Hanzo descobrir que Quan Chi manipulou os fatos e orquestrou o massacre do Shirai Ryu, inocentando o Lin Kuei Kuai Liang."
+            },
+            {
+                question: "Quais são as principais armas de Scorpion?",
+                answer: "Seu arsenal inclui a clássica Kunai ligada a uma corrente de metal flexível, espadas duplas Mugai Ryu e o uso direto do fogo infernal."
+            }
+        ];
+
+        const accordionContainer = document.getElementById('accordion-container');
+
+        faqData.forEach((item, index) => {
+            const accItem = document.createElement('div');
+            accItem.className = 'accordion-item';
+            
+            const accHeader = document.createElement('button');
+            accHeader.className = 'accordion-header';
+            accHeader.innerHTML = `<span>${item.question}</span><span>+</span>`;
+            
+            const accBody = document.createElement('div');
+            accBody.className = 'accordion-body';
+            accBody.textContent = item.answer;
+
+            accHeader.addEventListener('click', () => {
+                const isActive = accItem.classList.contains('active');
+                document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+                if (!isActive) {
+                    accItem.classList.add('active');
+                }
+            });
+
+            accItem.appendChild(accHeader);
+            accItem.appendChild(accBody);
+            accordionContainer.appendChild(accItem);
+        });
+
+        // Initial setup
+        updateCarousel();
+    </script>
+</body>
+</html>
